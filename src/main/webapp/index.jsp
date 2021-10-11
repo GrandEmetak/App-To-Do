@@ -1,16 +1,144 @@
+<%@ page import="ru.job4j.todo.model.Item" %>
 <%--
   Created by IntelliJ IDEA.
-  User: AdminTH
+  User: SlartiBartFast-art
   Date: 08.10.2021
   Time: 17:29
   To change this template use File | Settings | File Templates.
 --%>
+<!-- Импорты классов java для работы с ними-->
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-    <title>Title</title>
-</head>
-<body>
+<%@ page import="ru.job4j.todo.store.Store" %>
+<%@ page import="ru.job4j.todo.model.Item" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-</body>
+<!doctype html> <!-- Объявление формата документа определяет не только версию HTML (например, html), но и соответствующий DTD-файл в Интернете-->
+<html lang="en">
+<head><!-- Техническая информация о документе. -->
+    <!-- Введенная в нем информация не отображается в окне браузера, однако содержит данные, которые указывают браузеру,
+     как следует обрабатывать страницу. -->
+    <!-- Required meta tags -->
+    <meta charset="utf-8"><!-- Определяем кодировку символов для текущего HTML-документа -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Bootstrap Example</title><!-- Задаем заголовок документа -->
+    <!-- Bootstrap CSS --> <!-- Элемент <link> Задать стили для документа-->
+    <!--href	Основной атрибут элемента, в качестве значения выступает путь к файлу со стилями. -->
+    <!--Элемент <script> позволяет присоединять к документу различные сценарии.
+    Текст сценария может располагаться либо внутри этого элемента, либо во внешнем файле. -->
+    <!--src	Указывает на месторасположение файла со сценарием, значение атрибута — это url файла, содержащего JavaScript-программу. -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <!-- подключаем верхнюю таблицу Бутстрап? -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+            integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+            crossorigin="anonymous"></script><!-- Подключаем сценарии -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+            crossorigin="anonymous"></script>
+    <script>
+        function validate() {
+        var value1 = $('#validationDefault01').val();
+        var value2 = $('#validationDefault02').val();
+         if (value1 === '') {
+          alert(value1.attr(' Поле не заполнено'));
+           return false;
+         }
+            if (value2 === '') {
+          alert($('#validationDefault02').attr('title'));
+           return false;
+         }
+            return true;
+        }
+
+
+    </script>
+
+    <title>Работа мечты!</title>
+</head><!-- -->
+<body><!-- Основная часть документа -->
+<div class="row">
+    <!--<div>	Тег-контейнер для разделов HTML-документа. Используется для группировки блочных элементов с целью форматирования стилями. -->
+
+    <div>
+        <!-- Default dropup button Запуск раскрывающихся меню над элементами путем добавления .dropupк родительскому элементу.-->
+    </div>
+    <div class="container">
+        <form class=" need -validation " novalidate>
+            <div class="form-group">
+                <div class="col-md-6 mb-3">
+                    <label for="validationDefault01">Добавить новое задание</label>
+                    <textarea class="form-control" id="validationDefault01" rows="5"></textarea>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-3 mb-3">
+                        <label for="validationDefault02">Category</label>
+                        <select class="custom-select" id="validationDefault02" required>
+                            <option selected disabled value="">Choose...</option>
+                            <option>normal</option>
+                            <option>hard</option>
+                            <option>important</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <button type="submit" class="btn btn-primary" onclick="return validate();">Submit form
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="custom-control custom-switch">
+                <input type="checkbox" class="custom-control-input" id="customSwitch1">
+                <label class="custom-control-label" for="customSwitch1">Show all elements</label>
+            </div>
+            <table class="table">
+                <caption>list of notes according to the selected category</caption>
+                <thead class="thead-dark">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Created</th>
+                    <th scope="col">Category</th>
+                </tr>
+                </thead>
+                <tbody>
+                <% for (Item item : Store.instOf().findAll()) { %> <!--Java код выпишем через блок % % -->
+                <tr>
+                    <th scope="row"><%= item.getId() %>
+                    </th>
+                    <td>
+                        <div class="form-group form-check">
+                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                            <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                        </div>
+                        <%-- <button type="submit" class="btn btn-primary">Submit</button> --%>
+                    </td>
+                    <td><%= item.getDescription() %>
+                    </td><!--Вывод элемента в jsp %= %--> <!-- Java код написанный в JSP называется скриплет.-->
+                    <td><%= item.getCreated() %>
+                    </td>
+                    <%--  <td><%= item.isDone() %></td> --%>
+                </tbody>
+                </tr>
+                <% } %>
+            </table>
+            <nav class="navbar navbar-light bg-light">
+                <form class="form-inline">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
+            </nav>
+        </form>
+    </div>
+    <%-- --%>
+
+    <%--</div>
+--</div><!-- --> --%>
+</body> <!-- -->
 </html>
+
