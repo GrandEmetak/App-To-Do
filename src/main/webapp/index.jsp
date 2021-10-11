@@ -38,30 +38,81 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
             integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
             crossorigin="anonymous"></script>
-    <script>
-        function validate() {
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>AJAX</title>
+</head>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<!--добавить библиотеку jquery. для работы с ajax -->
+<script>
+    function validate() {
         var value1 = $('#validationDefault01').val();
         var value2 = $('#validationDefault02').val();
-         if (value1 === '') {
-          alert(value1.attr(' Поле не заполнено'));
-           return false;
-         }
-            if (value2 === '') {
-          alert($('#validationDefault02').attr('title'));
-           return false;
-         }
-            return true;
+        if (value1 === '') {
+            alert(value1.attr('Поле не заполнено'));
+            console.log('not equals')
+            return false;
         }
+        if (value2 === 'Choose...') {
+            alert($('#validationDefault02').attr('title'));
+            return false;
+        }
+        return true;
+    }
+</script>
+<script>
+    function addRow() {
+        //получаем значение поля usr
+        const name = $('#usr').val();
 
+        //получаем ссылку на последний элемент в таблице.
+        //и после него добавляем html
+        $('#table tr:last').after('<tr><td>' + name + '</td></tr>');
+    }
 
-    </script>
+</script>
+<script> <%-- Далее нужно написать скрипт, который будет выполнять http запрос. Когда клиент нажимает на кнопку метод .ajax выполняет http запрос. --%>
 
-    <title>Работа мечты!</title>
-</head><!-- -->
+function add() {
+    if (validate()) {
+        $.ajax({
+            type: 'POST', <!-- method-->
+            url: '//localhost:8080/job4j_todo/greet', <%-- куда пойдет запрос --%>
+            data: {
+                description: $('#validationDefault01').val(), <!-- Данные из формы -->
+                category: $('#validationDefault02').val()
+            }
+        }).done(function(data) {  <%--Если запрос выполнился удачно --%>
+          alert(data)
+        }).fail(function(err) { <%--Если запрос выполнился не удачно --%>
+            alert(err);
+        })
+    }
+}
+</script>
+
+<title>TO DO</title>
+!-- -->
+<div class="fixed-top">
+    <div class="collapse" id="navbarToggleExternalContent">
+        <div class="bg-dark p-4">
+            <h5 class="text-white h4">Collapsed content</h5>
+            <span class="text-muted">Toggleable via the navbar brand.</span>
+        </div>
+    </div>
+    <nav class="navbar navbar-dark bg-dark">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent"
+                aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </nav>
+</div>
+<br>
+<br>
+<br>
+
 <body><!-- Основная часть документа -->
 <div class="row">
     <!--<div>	Тег-контейнер для разделов HTML-документа. Используется для группировки блочных элементов с целью форматирования стилями. -->
-
     <div>
         <!-- Default dropup button Запуск раскрывающихся меню над элементами путем добавления .dropupк родительскому элементу.-->
     </div>
@@ -69,8 +120,9 @@
         <form class=" need -validation " novalidate>
             <div class="form-group">
                 <div class="col-md-6 mb-3">
+
                     <label for="validationDefault01">Добавить новое задание</label>
-                    <textarea class="form-control" id="validationDefault01" rows="5"></textarea>
+                    <textarea class="form-control" id="validationDefault01" rows="5" ></textarea>
                 </div>
                 <div class="form-row">
                     <div class="col-md-3 mb-3">
@@ -85,7 +137,7 @@
                 </div>
                 <div class="form-group">
                     <div class="row">
-                        <button type="submit" class="btn btn-primary" onclick="return validate();">Submit form
+                        <button type="submit" class="btn btn-primary" onclick="return add();">Submit form
                         </button>
                     </div>
                 </div>
@@ -95,7 +147,7 @@
                 <input type="checkbox" class="custom-control-input" id="customSwitch1">
                 <label class="custom-control-label" for="customSwitch1">Show all elements</label>
             </div>
-            <table class="table">
+            <table id='table' class="table">
                 <caption>list of notes according to the selected category</caption>
                 <thead class="thead-dark">
                 <tr>
