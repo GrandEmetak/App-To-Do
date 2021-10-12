@@ -29,7 +29,7 @@ import java.sql.Timestamp;
  *  два параметра. Параметр типа HttpServletRequest инкапсулирует всю информацию о запросе.
  *  А параметр типа HttpServletResponse позволяет управлять ответом.
  */
-//@WebServlet("/greet")  System.out.println(" получаем значение поля usr ");
+
 public class ToDoServlet extends HttpServlet {
     private static final Gson GSON = new GsonBuilder().create();
 
@@ -39,13 +39,12 @@ public class ToDoServlet extends HttpServlet {
         var fr =  req.getParameter("description");
         System.out.println("String " + fr);
         Item item = new Item(0,
-//                req.getParameter("desc"),
                 req.getParameter("description"),
                 new Timestamp(System.currentTimeMillis()), false);
-//      for (String category : req.getParameterValues("categ[]")) {
-//         // Category category1 = new Category(0, Store.findCategoryById(Integer.parseInt(category)));
-//          Category category1 = new Category(0, Store.findCategoryById(Integer.parseInt(category)));
-//      }
+      for (String category : req.getParameterValues("categ[]")) {
+          System.out.println("");
+        /*  Category category1 = new Category(0, Store.findCategoryById(Integer.parseInt(category)));*/
+      }
       Store.instOf().add(item);
     }
 
@@ -61,5 +60,4 @@ public class ToDoServlet extends HttpServlet {
             writer.close();
         }
     }
-
 }
