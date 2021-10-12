@@ -15,7 +15,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class Store {
 
     private static final Store INST = new Store();
-//    private static final Map<Integer, String> CATEGORY = new ConcurrentHashMap<>();
+   private static final Map<Integer, String> CATEGORY = new ConcurrentHashMap<>();
 private final Map<Integer, String> cat = new ConcurrentHashMap<>();
 
     private int i = 0;
@@ -25,9 +25,9 @@ private final Map<Integer, String> cat = new ConcurrentHashMap<>();
         items.put(++i, new Item(1, "walk the dog", new Timestamp(System.currentTimeMillis()), false));
         items.put(++i, new Item(2, "grocery shopping", new Timestamp(System.currentTimeMillis()), false));
         items.put(++i, new Item(3, "workout", new Timestamp(System.currentTimeMillis()), false));
-//        CATEGORY.put(1, "normal");
-//        CATEGORY.put(2, "hard");
-//        CATEGORY.put(3, "important");
+   /*     CATEGORY.put(1, "normal");
+        CATEGORY.put(2, "hard");
+        CATEGORY.put(3, "important");*/
         cat.put(1, "normal");
         cat.put(2, "hard");
      cat.put(3, "important");
@@ -37,7 +37,12 @@ private final Map<Integer, String> cat = new ConcurrentHashMap<>();
         return INST;
     }
 
-    public Item add(Item item) { // , Category category) {
+    /**
+     * Category category) - добавлять или нет . вопрос
+     * @param item
+     * @return
+     */
+    public Item add(Item item) {
         Item item1 = null;
         item = items.put(++i, item);
         return item;
@@ -47,10 +52,9 @@ private final Map<Integer, String> cat = new ConcurrentHashMap<>();
         return items.values();
     }
 
-//    public static String findCategoryById(int id) {
-////        return CATEGORY.get(id);
-//
-//    }
+    public static String findCategoryById(int id) {
+       return CATEGORY.get(id);
+    }
 
     public static void main(String[] args) {
         Store store = Store.instOf();
