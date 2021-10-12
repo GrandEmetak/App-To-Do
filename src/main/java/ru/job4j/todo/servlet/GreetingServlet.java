@@ -15,7 +15,7 @@ public class GreetingServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/plain");
         resp.setCharacterEncoding("UTF-8");
-        System.out.println(" //получаем значение поля usr ");
+        System.out.println(" получаем значение поля usr ");
         String name = req.getParameter("name");
         PrintWriter writer = new PrintWriter(resp.getOutputStream());
         writer.println("Nice to meet you, " + name);
