@@ -45,8 +45,8 @@
 <!--добавить библиотеку jquery. для работы с ajax -->
 <script>
     function validate() {
-        var value1 = $('#validationDefault01').val();
-        var value2 = $('#validationDefault02').val();
+        const value1 = $('#validationDefault01').val();
+        const value2 = $('#validationDefault02').val();
         if (value1 === '') {
             alert(value1.attr('Поле не заполнено'));
             console.log('not equals')
@@ -71,19 +71,30 @@
 
 </script>
 <script> <%-- Далее нужно написать скрипт, который будет выполнять http запрос. Когда клиент нажимает на кнопку метод .ajax выполняет http запрос. --%>
+<%--
+type: 'POST', - method
+url: '//localhost:8080/job4j_todo/greet',  куда пойдет запрос
+description: $('#validationDefault01').val(), <!-- Данные из формы -->
+.done(function(data) {   - Если запрос выполнился удачно
+alert(data)   -- alert()  Она показывает сообщение и ждёт, пока пользователь нажмёт кнопку «ОК».
+fail(function(err) --Если запрос выполнился не удачно --
 
+            alert(data)
+ --%>
 function add() {
+     let item;
     if (validate()) {
         $.ajax({
-            type: 'POST', <!-- method-->
-            url: '//localhost:8080/job4j_todo/greet', <%-- куда пойдет запрос --%>
+            type: 'POST',
+            url: '//localhost:8080/job4j_todo/greet',
             data: {
-                description: $('#validationDefault01').val(), <!-- Данные из формы -->
+                description: $('#validationDefault01').val(),
                 category: $('#validationDefault02').val()
             }
-        }).done(function(data) {  <%--Если запрос выполнился удачно --%>
-          alert(data)
-        }).fail(function(err) { <%--Если запрос выполнился не удачно --%>
+        }).done(function(data) {
+            $('#table tr:last').after('<tr><td>' + data.toString() + '</td></tr>');
+
+        }).fail(function(err) {
             alert(err);
         })
     }
@@ -91,7 +102,7 @@ function add() {
 </script>
 
 <title>TO DO</title>
-!-- -->
+<H1>TO DO</H1> TO DO
 <div class="fixed-top">
     <div class="collapse" id="navbarToggleExternalContent">
         <div class="bg-dark p-4">
@@ -171,7 +182,7 @@ function add() {
                         <%-- <button type="submit" class="btn btn-primary">Submit</button> --%>
                     </td>
                     <td><%= item.getDescription() %>
-                    </td><!--Вывод элемента в jsp %= %--> <!-- Java код написанный в JSP называется скриплет.-->
+                    </td><%--Вывод элемента в jsp %= --%> <!-- Java код написанный в JSP называется скриплет.-->
                     <td><%= item.getCreated() %>
                     </td>
                     <%--  <td><%= item.isDone() %></td> --%>
