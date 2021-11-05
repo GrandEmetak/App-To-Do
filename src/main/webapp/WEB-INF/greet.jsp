@@ -1,19 +1,18 @@
-<%@ page import="ru.job4j.todo.model.Item" %>
 <%--
   Created by IntelliJ IDEA.
-  User: SlartiBartFast-art
-  Date: 08.10.2021
-  Time: 17:29
+  User: AdminTH
+  Date: 13.10.2021
+  Time: 15:22
   To change this template use File | Settings | File Templates.
 --%>
-<!-- Импорты классов java для работы с ними-->
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="ru.job4j.todo.store.Store" %>
 <%@ page import="ru.job4j.todo.model.Item" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
 <!doctype html> <!-- Объявление формата документа определяет не только версию HTML (например, html), но и соответствующий DTD-файл в Интернете-->
 <html lang="en">
+
 <head><!-- Техническая информация о документе. -->
     <!-- Введенная в нем информация не отображается в окне браузера, однако содержит данные, которые указывают браузеру,
      как следует обрабатывать страницу. -->
@@ -61,11 +60,11 @@
 </script>
 <script>
     function addRow() {
-        <!--получаем значение поля usr -->
+        //получаем значение поля usr
         const name = $('#usr').val();
 
-        <%--получаем ссылку на последний элемент в таблице.
-        и после него добавляем html--%>
+        //получаем ссылку на последний элемент в таблице.
+        //и после него добавляем html
         $('#table tr:last').after('<tr><td>' + name + '</td></tr>');
     }
 
@@ -82,7 +81,7 @@ fail(function(err) --Если запрос выполнился не удачн�
             alert(data)toString()
  --%>
 function add() {
-     let item;
+    let item;
     if (validate()) {
         $.ajax({
             type: 'POST',
@@ -103,24 +102,6 @@ function add() {
 
 <title>TO DO</title>
 <H1>TO DO</H1> TO DO
-<div class="fixed-top">
-    <div class="collapse" id="navbarToggleExternalContent">
-        <div class="bg-dark p-4">
-            <h5 class="text-white h4">Collapsed content</h5>
-            <span class="text-muted">Toggleable via the navbar brand.</span>
-        </div>
-    </div>
-    <nav class="navbar navbar-dark bg-dark" aria-labelledby="">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent"
-                aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-    </nav>
-</div>
-<br>
-<br>
-<br>
-
 <body><!-- Основная часть документа -->
 <div class="row">
     <!--<div>	Тег-контейнер для разделов HTML-документа. Используется для группировки блочных элементов с целью форматирования стилями. -->
@@ -128,7 +109,7 @@ function add() {
         <!-- Default dropup button Запуск раскрывающихся меню над элементами путем добавления .dropupк родительскому элементу.-->
     </div>
     <div class="container">
-        <form class=" need -validation " novalidate> <%-- action="<%=request.getContextPath()%>/greet" method="post">--%>
+        <form action="<%=request.getContextPath()%>/greet" method="post">
             <div class="form-group">
                 <div class="col-md-6 mb-3">
 
@@ -199,11 +180,6 @@ function add() {
                 </form>
             </nav>
         </form>
-    </div>
-    <%-- --%>
-
-    <%--</div>
---</div><!-- --> --%>
+    </div><%-- --%>
 </body> <!-- -->
 </html>
-

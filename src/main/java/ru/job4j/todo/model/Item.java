@@ -12,6 +12,9 @@ public class Item {
     private Timestamp created;
     private boolean done;
 
+
+    private Category category;
+
     public Item() {
     }
 
@@ -20,6 +23,21 @@ public class Item {
         this.description = description;
         this.created = created;
         this.done = done;
+    }
+
+    public Item(int id, String description, Timestamp created, boolean done, Category category) {
+        this.id = id;
+        this.description = description;
+        this.created = created;
+        this.done = done;
+        this.category = category;
+    }
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     public int getId() {
@@ -81,6 +99,7 @@ public class Item {
                 + ", description='" + description + '\''
                 + ", created=" + created
                 + ", done=" + done
+                + ", category=" + category
                 + '}';
     }
 }

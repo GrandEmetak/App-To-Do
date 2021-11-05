@@ -17,17 +17,17 @@ import java.sql.Timestamp;
 
 /**
  * Давайте теперь создадим сервлет, который будет отрабатывать запросы.
- *  объект типа PrintWriter, используемый для отправки вывода клиенту.
- *  Однако, чтобы сделать объект response полезным,
- *  следует использовать буферизированный вариант PrintWriter - JspWriter
- *  Перед определением класса указана аннотация WebServlet,
- *  которая указывает, с какой конечной точкой будет сопоставляться данный сервлет.
- *  То есть данный сервлет будет обрабатывать запросы по адресу "/greet".
- *  Для обработки GET-запросов (например, при обращении к сервлету из адресной строки браузера)
- *  сервлет должен переопределить метод doGet. То есть, к примеру, в данном случае get-запрос
- *  по адресу /greet будет обрабатываться методом doGet.
- *  два параметра. Параметр типа HttpServletRequest инкапсулирует всю информацию о запросе.
- *  А параметр типа HttpServletResponse позволяет управлять ответом.
+ * объект типа PrintWriter, используемый для отправки вывода клиенту.
+ * Однако, чтобы сделать объект response полезным,
+ * следует использовать буферизированный вариант PrintWriter - JspWriter
+ * Перед определением класса указана аннотация WebServlet,
+ * которая указывает, с какой конечной точкой будет сопоставляться данный сервлет.
+ * То есть данный сервлет будет обрабатывать запросы по адресу "/greet".
+ * Для обработки GET-запросов (например, при обращении к сервлету из адресной строки браузера)
+ * сервлет должен переопределить метод doGet. То есть, к примеру, в данном случае get-запрос
+ * по адресу /greet будет обрабатываться методом doGet.
+ * два параметра. Параметр типа HttpServletRequest инкапсулирует всю информацию о запросе.
+ * А параметр типа HttpServletResponse позволяет управлять ответом.
  */
 
 public class ToDoServlet extends HttpServlet {
@@ -35,20 +35,27 @@ public class ToDoServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        Category category = null;
         resp.setContentType("text/plain; charset=utf-8");
-        var fr =  req.getParameter("description");
+        var fr = req.getParameter("description");
         System.out.println("String " + fr);
         Item item = new Item(0,
                 req.getParameter("description"),
                 new Timestamp(System.currentTimeMillis()), false);
-      for (String category : req.getParameterValues("categ[]")) {
-          System.out.println("");
-        /*  Category category1 = new Category(0, Store.findCategoryById(Integer.parseInt(category)));*/
-      }
-      Store.instOf().add(item);
+        for (String catgr : req.getParameterValues("category")) {
+            category = new Category(0, catgr);
+
+            System.out.println("Category" + category.getName() + "_");
+        }
+        if (category.getName().isEmpty()) {
+            category.setName("normal");
+            System.out.println("It is no good");
+        }
+        Store.instOf().add(item, category.getName());
+
     }
 
-    @Override
+   /* @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         super.doGet(req, resp);
         String name = req.getParameter("id");
@@ -59,5 +66,9 @@ public class ToDoServlet extends HttpServlet {
         } finally {
             writer.close();
         }
-    }
+    }*/
+ /*  @Override
+   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+       request.getRequestDispatcher("/greet.jsp").forward(request, response);
+   }*/
 }
