@@ -11,13 +11,12 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * модель хранилища
+ * Моодель хранилища
  */
 public class Store {
 
     private static final Store INST = new Store();
-    // private static final Map<String, String> CATEGORY = new ConcurrentHashMap<>();
-
+   /* private static final Map<String, String> CATEGORY = new ConcurrentHashMap<>();*/
     private final AtomicInteger postId = new AtomicInteger();
     private final Map<String, String> cat = new ConcurrentHashMap<>();
 
