@@ -6,14 +6,15 @@ import java.util.Objects;
 /**
  * Модель, описывающая событие в ежедневнике
  */
+
 public class Item {
     private int id;
     private String description;
     private Timestamp created;
     private boolean done;
-
-
+    private String rank;
     private Category category;
+    private int idUser;
 
     public Item() {
     }
@@ -32,6 +33,49 @@ public class Item {
         this.done = done;
         this.category = category;
     }
+
+    public Item(int id, String description, Timestamp created, boolean done, String rank) {
+        this.id = id;
+        this.description = description;
+        this.created = created;
+        this.done = done;
+        this.rank = rank;
+    }
+
+    public Item(int id, String description, Timestamp created, boolean done, String rank, Category category) {
+        this.id = id;
+        this.description = description;
+        this.created = created;
+        this.done = done;
+        this.rank = rank;
+        this.category = category;
+    }
+
+    public Item(int id, String description, Timestamp created, boolean done, String rank, int idUser) {
+        this.id = id;
+        this.description = description;
+        this.created = created;
+        this.done = done;
+        this.rank = rank;
+        this.idUser = idUser;
+    }
+
+    public int getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(int idUser) {
+        this.idUser = idUser;
+    }
+
+    public String getRank() {
+        return rank;
+    }
+
+    public void setRank(String rank) {
+        this.rank = rank;
+    }
+
     public Category getCategory() {
         return category;
     }
@@ -99,7 +143,9 @@ public class Item {
                 + ", description='" + description + '\''
                 + ", created=" + created
                 + ", done=" + done
+                + ", rank=" + rank
                 + ", category=" + category
+                + ", idUser" + idUser
                 + '}';
     }
 }

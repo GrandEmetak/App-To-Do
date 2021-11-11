@@ -5,12 +5,21 @@
 <web-app>
     <display-name>Archetype Created Web Application</display-name>
     <servlet><!--здесь прописан путь к Java-классу -->
-        <servlet-name>GreetingServlet</servlet-name>
+        <servlet-name>GreetingsServlet</servlet-name>
+        <servlet-class>ru.job4j.todo.servlet.GreetingsServlet</servlet-class>
+    </servlet>
+    <servlet><!--здесь прописан путь к Java-классу -->
+        <servlet-name>ToDoServlet</servlet-name>
         <servlet-class>ru.job4j.todo.servlet.ToDoServlet</servlet-class>
     </servlet>
 
     <servlet-mapping><!--здесь прописан путь к куску адресной строки, вызывающей сервлет -->
-        <servlet-name>GreetingServlet</servlet-name>
+        <servlet-name>GreetingsServlet</servlet-name>
         <url-pattern>/greet</url-pattern> <!-- greet - имя сервлета в web.xml -->
     </servlet-mapping>
+    <servlet-mapping><!--здесь прописан путь к куску адресной строки, вызывающей сервлет -->
+        <servlet-name>ToDoServlet</servlet-name>
+        <url-pattern>/todo</url-pattern> <!-- greet - имя сервлета в web.xml -->
+    </servlet-mapping>
+
 </web-app>

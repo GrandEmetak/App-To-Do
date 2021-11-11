@@ -3,7 +3,9 @@ package ru.job4j.todo.servlet;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import ru.job4j.todo.model.Category;
+import ru.job4j.todo.model.Event;
 import ru.job4j.todo.model.Item;
+import ru.job4j.todo.store.HbnStore;
 import ru.job4j.todo.store.Store;
 
 import javax.servlet.ServletException;
@@ -12,8 +14,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 /**
  * Давайте теперь создадим сервлет, который будет отрабатывать запросы.
@@ -31,44 +36,26 @@ import java.sql.Timestamp;
  */
 
 public class ToDoServlet extends HttpServlet {
-    private static final Gson GSON = new GsonBuilder().create();
+     private static final Gson GSON = new GsonBuilder().create();
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Category category = null;
-        resp.setContentType("text/plain; charset=utf-8");
-        var fr = req.getParameter("description");
-        System.out.println("String " + fr);
-        Item item = new Item(0,
-                req.getParameter("description"),
-                new Timestamp(System.currentTimeMillis()), false);
-        for (String catgr : req.getParameterValues("category")) {
-            category = new Category(0, catgr);
-
-            System.out.println("Category" + category.getName() + "_");
-        }
-        if (category.getName().isEmpty()) {
-            category.setName("normal");
-            System.out.println("It is no good");
-        }
-        Store.instOf().add(item, category.getName());
-
-    }
-
-   /* @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doGet(req, resp);
-        String name = req.getParameter("id");
-        PrintWriter writer = new PrintWriter(resp.getOutputStream());
-        try {
-            writer.println("Nice to meet you, " + name);
-            writer.flush();
-        } finally {
-            writer.close();
+
+        String category;
+        var fr = req.getParameter("description");
+        category = req.getParameter("category");
+        if (category.equals("null")) {
+            category = "normal";
         }
-    }*/
- /*  @Override
-   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-       request.getRequestDispatcher("/greet.jsp").forward(request, response);
-   }*/
+        System.out.println("String " + fr);
+        System.out.println("String " + category);
+        Event event = new Event(fr, Timestamp.valueOf(LocalDateTime.now()), false, category);
+        HbnStore.instOf().add(event);
+        resp.setContentType("application/json; charset=utf-8");
+        OutputStream output = resp.getOutputStream();
+        String json = GSON.toJson(event);
+        output.write(json.getBytes(StandardCharsets.UTF_8));
+        output.flush();
+        output.close();
+    }
 }
