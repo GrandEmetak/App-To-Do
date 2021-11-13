@@ -30,6 +30,8 @@ import java.util.List;
  * 3. Лямбды и шаблон wrapper. [#49295]
  * Уровень : 3. МидлКатегория : 3.3. HibernateТопик : 3.3.1. Конфигурирование
  * Упростите предыдущий проект (to do List) с использованием шаблона wrapper.
+ * посмотреть код методов до переделывания кода на лямбда и шаблон wrapper
+ * https://github.com/SlartiBartFast-art/job4j_todo/commit/a93ebe67dcde879a2cb2e0c2939e6fc98ce4b529
  *
  * @author SlartiBartFast-art
  * @since 13.10.21
@@ -125,9 +127,9 @@ public class HbnStore implements Store {
                 session -> {
                     Event result = session.get(Event.class, id);
                     session.delete(result);
-                   if (result != null) {
-                       return true;
-                   }
+                    if (result != null) {
+                        return true;
+                    }
                     return false;
                 }
         );
@@ -241,123 +243,6 @@ public class HbnStore implements Store {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("EEE, dd MMM yyyy.");
         return localDateTime.format(dateTimeFormatter);
     }
-
-    /*
-     *Оригинал метода  public List<Event> findAll() без  чета Лямбды и шаблон wrapper.
-     * Возращает Лист всех событий
-     * @return
-     */
-    /* @Override
-    public List<Event> findAll() {
-        Session session = sf.openSession();
-        session.beginTransaction();
-        List result = session.createQuery("from ru.job4j.todo.model.Event").list();
-        session.getTransaction().commit();
-        session.close();
-        System.out.println(" All OK ->");
-        return result;
-    }*/
-
-   /* @Override
-    public Event add(Event event) {
-        Session session = sf.openSession();
-        try {
-            session.beginTransaction();
-            session.save(event);
-            session.getTransaction().commit();
-            session.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return event;
-    }*/
-
-   /* @Override
-    public boolean update(Event event) {
-        boolean rsl = false;
-        try (Session session = sf.openSession()) {
-            try {
-                session.beginTransaction();
-                Event result = session.get(Event.class, event.getId());
-                session.delete(result);
-                session.getTransaction().commit();
-                session.close();
-                rsl = true;
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        } catch (Exception e) {
-            System.out.println("Session session");
-            e.printStackTrace();
-        }
-        return rsl;
-    }*/
-
-    /*
-     * Удаляет Событие из Базы Эвент по id
-     * @param id
-     * @return
-     */
-  /*  @Override
-    public boolean delete(int id) {
-        boolean rsl = false;
-        try (Session session = sf.openSession()) {
-            try {
-                session.beginTransaction();
-                Event result = session.get(Event.class, id);
-                session.delete(result);
-                session.getTransaction().commit();
-                session.close();
-                rsl = true;
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        } catch (Exception e) {
-            System.out.println("Session session");
-            e.printStackTrace();
-        }
-        return rsl;
-    }*/
-
-  /*  @Override
-    public Event findById(int id) {
-        Event event = null;
-        try (Session session = sf.openSession()) {
-            try {
-                session.beginTransaction();
-                Event result = session.get(Event.class, id);
-                session.getTransaction().commit();
-                session.close();
-                event = result;
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-        } catch (Exception e) {
-            System.out.println("Session session");
-            e.printStackTrace();
-        }
-        return event;
-    }*/
-
-  /*  @Override
-    public List<Item> findByName(String key) {
-        Session session = sf.openSession();
-        List<Item> itemList = new ArrayList<>();
-        try {
-            session.beginTransaction();
-            var list = session
-                    .createQuery("from ru.job4j.tracker.model.Item where name = :key")
-                    .setParameter("key", key)
-                    .list();
-            session.getTransaction().commit();
-            session.close();
-            return list;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return itemList;
-    }*/
 
     public static void main(String[] args) {
 
