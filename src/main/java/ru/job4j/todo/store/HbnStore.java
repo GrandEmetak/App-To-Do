@@ -10,10 +10,12 @@ import org.hibernate.query.Query;
 import ru.job4j.todo.Store;
 import ru.job4j.todo.model.Event;
 import ru.job4j.todo.model.Item;
+import ru.job4j.todo.model.User;
 
+import java.sql.*;
+import java.time.format.DateTimeFormatter;
 import java.util.function.Function;
 
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +49,13 @@ public class HbnStore implements Store {
     /**
      * Лямбды и шаблон wrapper.
      * Здесь мы можем применить шаблон проектирования wrapper.
+     * Function<T,R>
+     * Функциональный интерфейс Function<T,R> представляет функцию перехода
+     * от объекта типа T к объекту типа R
+     * Метод apply()- это основной абстрактный функциональный метод Function интерфейса.
+     * Он принимает в качестве входных данных параметр T типа  и выдает выходной объект типа R.
+     * Interface EntityTransaction.commit()
+     * - Зафиксируйте текущую транзакцию ресурса, записав все незатронутые изменения в базу данных.
      *
      * @param command
      * @param <T>
@@ -80,6 +89,13 @@ public class HbnStore implements Store {
         );
     }
 
+    @Override
+    public List<User> findAllUser() {
+        return this.tx(
+                session -> session.createQuery("from ru.job4j.todo.model.User").list()
+        );
+    }
+
     /**
      * Метов добавляет событие(Event) в БД
      * метод написан с учетом Лямбды и шаблон wrapper.
@@ -105,13 +121,14 @@ public class HbnStore implements Store {
      */
     @Override
     public boolean delete(int id) {
-        final boolean[] rsl = {false};
         return this.tx(
                 session -> {
                     Event result = session.get(Event.class, id);
                     session.delete(result);
-                    rsl[0] = true;
-                    return rsl[0];
+                   if (result != null) {
+                       return true;
+                   }
+                    return false;
                 }
         );
     }
@@ -123,12 +140,57 @@ public class HbnStore implements Store {
      * @return
      */
     public Event findById(int id) {
-        final Event[] event = {null};
+        return this.tx(
+                session -> session.get(Event.class, id)
+        );
+    }
+
+    @Override
+    public void save(User user) {
+        if (user.getId() == 0) {
+            createUser(user);
+        } else {
+            updateUser(user);
+        }
+    }
+
+    private User createUser(User user) {
         return this.tx(
                 session -> {
-                    Event result = session.get(Event.class, id);
-                    event[0] = result;
-                    return event[0];
+                    session.save(user);
+                    return user;
+                }
+        );
+    }
+
+    private boolean updateUser(User user) {
+        return this.tx(
+                session -> {
+                    String hql = "UPDATE User set name = :name, "
+                            + "email = :email, "
+                            + "password = :password "
+                            + "WHERE id = :userId";
+                    Query query = session.createQuery(hql);
+                    query.setParameter("name", user.getName());
+                    query.setParameter("email", user.getEmail());
+                    query.setParameter("password", user.getPassword());
+                    query.setParameter("userId", user.getId());
+                    var t = query.executeUpdate();
+                    System.out.println("ТО что пришло " + t);
+                    if (t != 0) {
+                        return true;
+                    }
+                    return false;
+                }
+        );
+    }
+
+    @Override
+    public User findByEmail(String email) {
+        return this.tx(
+                session -> {
+                    var t = session.get(User.class, email);
+                    return t;
                 }
         );
     }
@@ -140,12 +202,12 @@ public class HbnStore implements Store {
 
     /**
      * The method is updating DB events
+     *
      * @param event Object to update
      * @return true if it was successful or false
      */
     @Override
     public boolean update(Event event) {
-        final boolean[] rsl = {false};
         return this.tx(
                 session -> {
                     String hql = "UPDATE Event set description = :description, "
@@ -162,11 +224,22 @@ public class HbnStore implements Store {
                     int result = query.executeUpdate();
                     System.out.println("ТО что пришло " + result);
                     if (result == 1) {
-                         rsl[0] = true;
+                        return true;
                     }
-                    return  rsl[0];
+                    return false;
                 }
         );
+    }
+
+    /**
+     * метод проводит конвертацию времени из LocalDateTime в String
+     *
+     * @param localDateTime
+     * @return
+     */
+    private String convert(LocalDateTime localDateTime) {
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("EEE, dd MMM yyyy.");
+        return localDateTime.format(dateTimeFormatter);
     }
 
     /*
@@ -287,11 +360,8 @@ public class HbnStore implements Store {
     }*/
 
     public static void main(String[] args) {
-        HbnStore hbnStore = new HbnStore();
-        Event event = new Event("car wash", Timestamp.valueOf(LocalDateTime.now()), false, "normal");
-        var ev = hbnStore.add(event);
-        System.out.println("То что вернул метод add(Event event) :" + ev);
-        var rsl = hbnStore.delete(ev.getId());
+
+ /*       var rsl = hbnStore.delete(ev.getId());
         System.out.println("То что вернул delete(ID) : " + rsl);
         var fnd = hbnStore.findById(3);
         System.out.println("То что нашили по findById(id) :" + fnd);
@@ -301,6 +371,14 @@ public class HbnStore implements Store {
         var t = hbnStore.findAll();
         for (Event eventT : t) {
             System.out.println("ТО что пришло из БД : " + eventT);
+        }*/
+        HbnStore hbnStore = new HbnStore();
+        Event event = new Event("car wash", Timestamp.valueOf(LocalDateTime.now()), false, "normal");
+        var ev = hbnStore.add(event);
+        System.out.println("То что вернул метод add(Event event) :" + ev);
+        hbnStore.save(User.of("John Smith", "JohnPost@post.com", "WordPassword", ev));
+        for (User user : hbnStore.findAllUser()) {
+            System.out.println("ТО что нашли по User : " + user + " " + user.getEvent().getDescription());
         }
     }
 }
