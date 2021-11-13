@@ -1,3 +1,7 @@
+<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="ru.job4j.todo.model.User" %><%-- --%>
+<%@ page import="java.util.Collection" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -27,11 +31,11 @@
 </head>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
-<script type="text/javascript"> <!--start -->
-$(document).ready(function () {
-    sendGreeting();
-});
-</script>
+<%--<script type="text/javascript"> <!--start -->--%>
+<%--$(document).ready(function () {--%>
+<%--    sendGreeting();--%>
+<%--});--%>
+<%--</script>--%>
 
 <title>TO DO</title>
 
@@ -39,8 +43,8 @@ $(document).ready(function () {
 <div class="fixed-top">
     <div class="collapse" id="navbarToggleExternalContent">
         <div class="bg-dark p-4">
-            <h5 class="text-white h4">Collapsed content</h5>
-            <span class="text-muted">Toggleable via the navbar brand.</span>
+            <h5 class="text-white h4"> Ознакомьтесь, пожалуйста с правилами! </h5>
+            <span class="text-muted"> Для просмотра/внесения записей необходимо войти под своей авторизацией или зарегистирироваться </span>
         </div>
     </div>
     <nav class="navbar navbar-dark bg-dark" aria-labelledby="">
@@ -53,10 +57,17 @@ $(document).ready(function () {
 <br>
 <br>
 <br>
-
 <body>
 <div class="row">
-
+        <ul class="nav">
+            <br>
+            <li class="nav-item">
+                <a class="nav-link" href="<%=request.getContextPath()%>/reg.do">Регистрация</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="<%=request.getContextPath()%>/login.jsp"> Авторизация </a>
+            </li>
+        </ul>
     <div class="container">
         <form class=" need -validation " novalidate>
             <div class="form-group">
@@ -103,7 +114,8 @@ $(document).ready(function () {
             <script> <!--показать контент по нажатию  $('#text').show(100); если не активна то он скрыт $('#text').hide(100);-->
             $('#checkbox').click(function () {
                 if ($(this).is(':checked')) {
-                    doneFalse();
+                    $('#text').show(100);
+                   doneFalse();
                 } else {
                     location.reload();
                 }

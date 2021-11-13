@@ -16,10 +16,12 @@ public class Event {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String description;
+
     private Timestamp created;
+
     private boolean done;
+
     private String rank;
-/*    private int userId;*/
 
     public Event() {
     }
@@ -38,15 +40,6 @@ public class Event {
         this.done = done;
         this.rank = rank;
     }
-
-   /* public Event(int id, String description, Timestamp created, boolean done, String rank, int userId) {
-        this.id = id;
-        this.description = description;
-        this.created = created;
-        this.done = done;
-        this.rank = rank;
-        this.userId = userId;
-    }*/
 
     public int getId() {
         return id;
@@ -117,7 +110,6 @@ public class Event {
                 + ", created=" + created
                 + ", done=" + done
                 + ", rank='" + rank + '\''
-/*                + ", idUser=" + idUser*/
                 + '}';
     }
 }
