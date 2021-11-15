@@ -34,7 +34,19 @@
 <script type="text/javascript"> <!--start -->
 $(document).ready(function () {
     sendGreeting();
+    print()
 });
+</script>
+<script>
+    function print() {
+        let f = $('#user');
+        $.each(f, function (key, value) {
+            console.log('то что в вервлете ' + value.name);
+            console.log('то что в вервлете ' + value.event.description);
+
+        });
+
+    }
 </script>
 
 <title>TO DO</title>
@@ -64,7 +76,7 @@ $(document).ready(function () {
     <div class="row">
         <ul class="nav">
             <li class="nav-item">
-                <a class="nav-link" href="<%=request.getContextPath()%>/login.jsp"> <c:out value=" ${user.name}"/> | Выйти</a>
+                <a class="nav-link" href="<%=request.getContextPath()%>/login.jsp"> <c:out value="${user.name}"/> | Выйти</a>
             </li>
         </ul>
     </div>
@@ -126,6 +138,7 @@ $(document).ready(function () {
                 <thead class="thead-dark">
                 <tr>
                     <th scope="col">#</th>
+                    <th scope="col">Check</th>
                     <th scope="col">Status</th>
                     <th scope="col">Description</th>
                     <th scope="col">Created</th>

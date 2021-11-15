@@ -59,6 +59,8 @@ public class AuthServlet extends HttpServlet {
         var user = HbnStore.instOf().findByEmail(email);
         System.out.println("to chto nasloc v BD po email : " + user);
         if (user.getEmail().equals(email) && user.getPassword().equals(password)) {
+            System.out.println("Зашли в if :" + user.getEmail());
+      //      req.setAttribute("user", user);
             HttpSession sc = req.getSession();
 //            User admin = new User();
 //            admin.setName(user.getName());
@@ -81,21 +83,6 @@ public class AuthServlet extends HttpServlet {
             req.setAttribute("error", "Не верный email или пароль");
             req.getRequestDispatcher("login.jsp").forward(req, resp);
         }
-        // var psw = HbnStore.instOf().findAllUser()
-//        for (User user : HbnStore.instOf().findAllUser()) {
-//
-//        }
 
-//        if ("root@local".equals(email) && "root".equals(password)) {
-//            HttpSession sc = req.getSession();
-//            User admin = new User();
-//            admin.setName(email);
-//            admin.setEmail(email);
-//            sc.setAttribute("user", admin);
-//            resp.sendRedirect(req.getContextPath() + "/index.jsp");
-//        } else {
-//            req.setAttribute("error", "Не верный email или пароль");
-//            req.getRequestDispatcher("login.jsp").forward(req, resp);
-//        }
     }
 }
