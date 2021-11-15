@@ -20,10 +20,12 @@ import java.util.List;
 /**
  * Сервлет передает получает данные из БД все записи существующие на данный момент,
  * передает их вызывающему в виде json.
+ * mapping - /greet
  */
 public class GreetingsServlet extends HttpServlet {
+
     private static final Gson GSON = new GsonBuilder().create();
-   // private List<Event> placeList = new ArrayList<>();
+
     private List<User> userList = new ArrayList<>();
 
     @Override
@@ -41,17 +43,5 @@ public class GreetingsServlet extends HttpServlet {
         output.write(json.getBytes(StandardCharsets.UTF_8));
         output.flush();
         output.close();
-
-     /* было до добавления логин и авторизация
-        for (Event event : HbnStore.instOf().findAll()) {
-    System.out.println("ТО что достакм : " + event);
-    placeList.add(event);
-}
-        resp.setContentType("application/json; charset=utf-8");
-        OutputStream output = resp.getOutputStream();
-        String json = GSON.toJson(placeList);
-        output.write(json.getBytes(StandardCharsets.UTF_8));
-        output.flush();
-        output.close();*/
     }
 }

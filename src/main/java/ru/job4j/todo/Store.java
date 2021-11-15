@@ -25,5 +25,7 @@ public interface Store {
 
     public Event add(Event event);
 
+    public User addUser(User user);
+
     public Event findById(int id);
 }

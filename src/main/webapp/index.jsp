@@ -134,17 +134,7 @@
                 </thead>
                 <tbody>
                 <div>
-                    <!--                    <script>-->
-                    <!--                        $('#checkbox').on('click', function () {-->
-                    <!--                            if ( $(this).is(':checked') ) {-->
-                    <!--                                alert('Выбран')-->
-                    <!--                                // checkbox checked-->
-                    <!--                            } else {-->
-                    <!--                                alert('Невыбран')-->
-                    <!--                                // checkbox unchecked-->
-                    <!--                            }-->
-                    <!--                        });-->
-                    <!--                    </script>-->
+
                 </div>
                 </tbody>
                 <script><!--чекбокс/радиокнопка  состоянние true/false-->

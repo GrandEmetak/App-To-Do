@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import ru.job4j.todo.model.Category;
 import ru.job4j.todo.model.Event;
 import ru.job4j.todo.model.Item;
+import ru.job4j.todo.model.User;
 import ru.job4j.todo.store.HbnStore;
 import ru.job4j.todo.store.Store;
 
@@ -44,13 +45,21 @@ public class ToDoServlet extends HttpServlet {
         String category;
         var fr = req.getParameter("description");
         category = req.getParameter("category");
+        var usr = req.getParameter("user");
+        System.out.println("TO DO SERV USER : " + usr);
+
         if (category.equals("null")) {
             category = "normal";
         }
         System.out.println("String " + fr);
         System.out.println("String " + category);
         Event event = new Event(fr, Timestamp.valueOf(LocalDateTime.now()), false, category);
-        HbnStore.instOf().add(event);
+        var evtId = HbnStore.instOf().add(event);
+        var iD = evtId.getId();
+        System.out.println("Evene ID posle bazi : " + iD);
+     var user1 = HbnStore.instOf().findByEmail(usr);
+     var userNewTack = User.of(user1.getName(), user1.getEmail(), user1.getPassword(), event);
+     HbnStore.instOf().addUser(userNewTack);
         resp.setContentType("application/json; charset=utf-8");
         OutputStream output = resp.getOutputStream();
         String json = GSON.toJson(event);

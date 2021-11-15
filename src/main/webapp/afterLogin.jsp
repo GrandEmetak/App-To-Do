@@ -1,7 +1,11 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%--<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>--%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
+<%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import="ru.job4j.todo.model.User" %>
 <%@ page import="java.util.Collection" %>
+<%@ page import="ru.job4j.todo.model.User" %>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -25,29 +29,57 @@
     <script src="scripts/validate.js"></script>
     <script src="scripts/add.js"></script>
     <script src="scripts/doneFalse.js"></script>
+    <script src="scripts/retutF.js"></script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>AJAX</title>
 </head>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script>
+    let f;
+</script>
 
 <script type="text/javascript"> <!--start -->
 $(document).ready(function () {
-    sendGreeting();
-    print()
+    $.ajax({
+        type: 'Get',
+        url: 'http://localhost:8080/job4j_todo/auth.do',
+        dataType: 'json',
+    }).done(function (response) {
+        console.log(response[0].email);
+        f = response[0].email;
+
+        let str = '';
+        $.each(response, function (key, value) {
+            console.log('Предположительно Объект событие ' + value.event.id);
+            console.log('Предположительно Объект событие ' + value.event.description);
+            console.log('Предположительно Объект событие ' + value.event.created);
+            console.log('Предположительно Объект событие ' + value.event.rank);
+            console.log(value.id);
+            console.log(value.name);
+            console.log(value.password);
+            console.log(value.email);
+            console.log('Предположительно Объект событие ' + value.event.description);
+
+            str += '<tr> + <th> ' + value.event.id + '</th>';
+            str += '<td>' + '<div class="form-group form-check">' + '<input type="checkbox" class="form-check-input" id="checkbox">'
+                + '<label class="form-check-label" for="checkbox">Check me out</label>' + '</td>'
+                + '<td>' + value.event.done + '</td>'
+                + '<td>' + value.event.description + '</td>'
+                + '<td>' + value.event.created + '</td>'
+                + '<td>' + value.event.rank + '</td>'
+                + '<td>' + value.name + '</td>';
+            str += '<tr>';
+            $('#table tr:last').after(str);
+            str = '';
+        });
+    }).fail(function (err) {
+        alert(err);
+    })
 });
 </script>
-<script>
-    function print() {
-        let f = $('#user');
-        $.each(f, function (key, value) {
-            console.log('то что в вервлете ' + value.name);
-            console.log('то что в вервлете ' + value.event.description);
 
-        });
 
-    }
-</script>
 
 <title>TO DO</title>
 
@@ -70,18 +102,16 @@ $(document).ready(function () {
 <br>
 <br>
 <body>
-<p>Name: ${user}</p>
-<p>Age: ${user.name}</p>
 <div class="row">
-    <div class="row">
-        <ul class="nav">
-            <li class="nav-item">
-                <a class="nav-link" href="<%=request.getContextPath()%>/login.jsp"> <c:out value="${user.name}"/> | Выйти</a>
-            </li>
-        </ul>
-    </div>
-
     <div class="container">
+        <div class="row">
+            <ul class="nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="<%=request.getContextPath()%>/login.jsp"> <c:out value=" ${user.name}"/> |
+                        Выйти</a>
+                </li>
+            </ul>
+        </div>
         <form class=" need -validation " novalidate>
             <div class="form-group">
                 <div class="col-md-6 mb-3">
@@ -102,16 +132,17 @@ $(document).ready(function () {
                 </div>
                 <div class="form-group">
                     <div class="row"> <!-- type="submit"-->
-                        <button id="btn" class="btn btn-primary" onclick="add()"> Submit form</button>
+                        <button id="btn" class="btn btn-primary" onclick="add(f)"> Submit form</button>
                     </div>
                 </div>
-                <div class="row float-right">
-                    <script>
-                        $('#btn').click(function () {
-                            add();
-                        });
-                    </script>
-                </div>
+<%--                <div class="row float-right">--%>
+<%--                    <script>--%>
+<%--                        $('#btn').click(function () {--%>
+<%--                            console.log('Передаем в сервлет ТУДУ : ' + f);--%>
+<%--                            add(f);--%>
+<%--                        });--%>
+<%--                    </script>--%>
+<%--                </div>--%>
             </div>
             <br>
             <div class="custom-control custom-switch">
@@ -129,7 +160,8 @@ $(document).ready(function () {
                 if ($(this).is(':checked')) {
                     doneFalse();
                 } else {
-                    location.reload();
+                   // location.reload();
+                    window.location.reload();
                 }
             });
             </script>
@@ -147,19 +179,36 @@ $(document).ready(function () {
                 </tr>
                 </thead>
                 <tbody>
-                <div>
-                    <!--                    <script>-->
-                    <!--                        $('#checkbox').on('click', function () {-->
-                    <!--                            if ( $(this).is(':checked') ) {-->
-                    <!--                                alert('Выбран')-->
-                    <!--                                // checkbox checked-->
-                    <!--                            } else {-->
-                    <!--                                alert('Невыбран')-->
-                    <!--                                // checkbox unchecked-->
-                    <!--                            }-->
-                    <!--                        });-->
-                    <!--                    </script>-->
-                </div>
+
+                <!--                    <script>-->
+                <!--                        $('#checkbox').on('click', function () {-->
+                <!--                            if ( $(this).is(':checked') ) {-->
+                <!--                                alert('Выбран')-->
+                <!--                                // checkbox checked-->
+                <!--                            } else {-->
+                <!--                                alert('Невыбран')-->
+                <!--                                // checkbox unchecked-->
+                <!--                            }-->
+                <!--                        });-->
+                <!--                    </script>-->
+<%--                <c:forEach items="${userList}" var="user1">--%>
+<%--                    <tr>--%>
+<%--                        <td><c:out value="${user1.event.id}"/></td>--%>
+<%--                        <td>--%>
+<%--                            <div class="form-group form-check">--%>
+<%--                                <input type="radio" class="form-check-input" id="checkbox + <c:out value="${user1.event.done}"/>">--%>
+<%--                                <label class="form-check-label" for="checkbox">Check me out</label>--%>
+<%--                            </div>--%>
+<%--                        </td>--%>
+<%--                        <td><c:out value="${user1.event.done}"/></td>--%>
+<%--                        <td><c:out value="${user1.event.description}"/></td>--%>
+<%--                        <td><c:out value="${user1.event.created}"/></td>--%>
+<%--                        <td><c:out value="${user1.event.rank}"/></td>--%>
+<%--                        <td><c:out value="${user1.name}"/></td>--%>
+
+<%--                    </tr>--%>
+<%--                </c:forEach>--%>
+
                 </tbody>
                 <script><!--чекбокс/радиокнопка  состоянние true/false-->
                 $('#checkbox').click(function () {

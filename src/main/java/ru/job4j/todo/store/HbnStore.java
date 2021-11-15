@@ -116,6 +116,21 @@ public class HbnStore implements Store {
     }
 
     /**
+     * Сохраняет существующего юзера и новую задачу
+     * @param user
+     * @return
+     */
+    @Override
+    public User addUser(User user) {
+        return this.tx(
+                session -> {
+                    session.save(user);
+                    return user;
+                }
+        );
+    }
+
+    /**
      * The method removes an object Event Object from DB
      *
      * @param id Object Event which the we want to delete from BD
