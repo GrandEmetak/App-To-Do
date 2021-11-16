@@ -33,14 +33,18 @@ import java.util.List;
 public class AuthServlet extends HttpServlet {
     private static final Gson GSON = new GsonBuilder().create();
     private List<User> userList = new ArrayList<>();
+    private List<User> userList1 = new ArrayList<>();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-       var user = userList.get(0);
+
+        var user = userList.get(0);
+       var user1 = HbnStore.instOf().findByEmail(user.getEmail());
+       userList1.add(user1);
         System.out.println("SErvlet AuthServlet doGet " + user);
         resp.setContentType("application/json; charset=utf-8");
         OutputStream output = resp.getOutputStream();
-        String json = GSON.toJson(userList);
+        String json = GSON.toJson(userList1);
         output.write(json.getBytes(StandardCharsets.UTF_8));
         output.flush();
         output.close();

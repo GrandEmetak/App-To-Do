@@ -20,6 +20,8 @@ import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Давайте теперь создадим сервлет, который будет отрабатывать запросы.
@@ -35,9 +37,10 @@ import java.time.LocalDateTime;
  * два параметра. Параметр типа HttpServletRequest инкапсулирует всю информацию о запросе.
  * А параметр типа HttpServletResponse позволяет управлять ответом.
  */
-
+/*/todo*/
 public class ToDoServlet extends HttpServlet {
      private static final Gson GSON = new GsonBuilder().create();
+    private List<User> userList = new ArrayList<>();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -60,9 +63,10 @@ public class ToDoServlet extends HttpServlet {
      var user1 = HbnStore.instOf().findByEmail(usr);
      var userNewTack = User.of(user1.getName(), user1.getEmail(), user1.getPassword(), event);
      HbnStore.instOf().addUser(userNewTack);
+     userList.add(userNewTack);
         resp.setContentType("application/json; charset=utf-8");
         OutputStream output = resp.getOutputStream();
-        String json = GSON.toJson(event);
+        String json = GSON.toJson(userList);
         output.write(json.getBytes(StandardCharsets.UTF_8));
         output.flush();
         output.close();

@@ -131,8 +131,8 @@ $(document).ready(function () {
                     </div>
                 </div>
                 <div class="form-group">
-                    <div class="row"> <!-- type="submit"-->
-                        <button id="btn" class="btn btn-primary" onclick="add(f)"> Submit form</button>
+                    <div class="row"> <!-- type="submit"  -->
+                        <button type="button" id="btn" class="btn btn-primary" onclick="add(f)"> Submit form</button>
                     </div>
                 </div>
 <%--                <div class="row float-right">--%>

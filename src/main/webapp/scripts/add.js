@@ -12,10 +12,10 @@ function add(f) {
             console.log('OBJECT JSON ' + response);
             let str = '';
             $.each(response, function (key, value) {
-                console.log('Предположительно Объект событие ' + value.event.id);
-                console.log('Предположительно Объект событие ' + value.event.description);
-                console.log('Предположительно Объект событие ' + value.event.created);
-                console.log('Предположительно Объект событие ' + value.event.rank);
+                // console.log('Предположительно Объект событие ' + value.event.id);
+                // console.log('Предположительно Объект событие ' + value.event.description);
+                // console.log('Предположительно Объект событие ' + value.event.created);
+                // console.log('Предположительно Объект событие ' + value.event.rank);
                 console.log(value.id);
                 console.log(value.name);
                 console.log(value.password);
@@ -33,6 +33,7 @@ function add(f) {
                 str += '<tr>';
                 $('#table tr:last').after(str);
                 str = '';
+
             });
         }).fail(function (err) {
             alert(err);
