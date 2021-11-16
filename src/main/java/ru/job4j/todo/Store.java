@@ -11,7 +11,7 @@ public interface Store {
 
     void save(User user);
 
-    User findByEmail(String email);
+    List<User> findByEmail(String email);
 
     public Event create(Event event);
 

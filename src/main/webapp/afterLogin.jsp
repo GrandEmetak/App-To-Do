@@ -37,6 +37,7 @@
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script>
     let f;
+    let index = 1;
 </script>
 
 <script type="text/javascript"> <!--start -->
@@ -61,7 +62,7 @@ $(document).ready(function () {
             console.log(value.email);
             console.log('Предположительно Объект событие ' + value.event.description);
 
-            str += '<tr> + <th> ' + value.event.id + '</th>';
+            str += '<tr> + <th> ' + index + '</th>';
             str += '<td>' + '<div class="form-group form-check">' + '<input type="checkbox" class="form-check-input" id="checkbox">'
                 + '<label class="form-check-label" for="checkbox">Check me out</label>' + '</td>'
                 + '<td>' + value.event.done + '</td>'
@@ -72,6 +73,7 @@ $(document).ready(function () {
             str += '<tr>';
             $('#table tr:last').after(str);
             str = '';
+            index +=1;
         });
     }).fail(function (err) {
         alert(err);
@@ -132,7 +134,7 @@ $(document).ready(function () {
                 </div>
                 <div class="form-group">
                     <div class="row"> <!-- type="submit"  -->
-                        <button type="button" id="btn" class="btn btn-primary" onclick="add(f)"> Submit form</button>
+                        <button type="button" id="btn" class="btn btn-primary" onclick="add(f, index)"> Submit form</button>
                     </div>
                 </div>
 <%--                <div class="row float-right">--%>

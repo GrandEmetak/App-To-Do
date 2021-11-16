@@ -14,10 +14,9 @@ import java.io.IOException;
 /**
  * 4. Регистрация пользователя. [#283110 #209712]01
  * Уровень : 3. МидлКатегория : 3.2. Servlet JSPТопик : 3.2.6. Filter, Security
- *  ATTENTION! -
- *  удален файл web.xml, произведена замена во всех классах
- *  на аннотацию @WebServlet(urlPattern = " маппинг имя")
- *
+ * ATTENTION! -
+ * удален файл web.xml, произведена замена во всех классах
+ * на аннотацию @WebServlet(urlPattern = " маппинг имя")
  */
 /*@WebServlet(urlPatterns = "/reg.do")*/
 public class RegServlet extends HttpServlet {
@@ -55,7 +54,8 @@ public class RegServlet extends HttpServlet {
         String name = req.getParameter("name");
         String email = req.getParameter("email");
         String password = req.getParameter("password");
-        User user = HbnStore.instOf().findByEmail(email);
+        var userList = HbnStore.instOf().findByEmail(email);
+        var user = userList.get(0);
         if (user != null) {
             req.setAttribute("error", "данный пользователь уже существует");
             req.getRequestDispatcher("login.jsp").forward(req, resp);
@@ -67,7 +67,7 @@ public class RegServlet extends HttpServlet {
             admin.setEmail(email);
             admin.setPassword(password);
             sc.setAttribute("user", admin);
-           HbnStore.instOf().save(admin);
+            HbnStore.instOf().save(admin);
             resp.sendRedirect(req.getContextPath() + "/afterLogin.jsp");
         } else {
             req.setAttribute("error", "Не верный email, пароль или имя");

@@ -39,7 +39,7 @@ import java.util.List;
  */
 /*/todo*/
 public class ToDoServlet extends HttpServlet {
-     private static final Gson GSON = new GsonBuilder().create();
+    private static final Gson GSON = new GsonBuilder().create();
     private List<User> userList = new ArrayList<>();
 
     @Override
@@ -60,10 +60,11 @@ public class ToDoServlet extends HttpServlet {
         var evtId = HbnStore.instOf().add(event);
         var iD = evtId.getId();
         System.out.println("Evene ID posle bazi : " + iD);
-     var user1 = HbnStore.instOf().findByEmail(usr);
-     var userNewTack = User.of(user1.getName(), user1.getEmail(), user1.getPassword(), event);
-     HbnStore.instOf().addUser(userNewTack);
-     userList.add(userNewTack);
+        var userL = HbnStore.instOf().findByEmail(usr);
+        var user1 = userL.get(0);
+        var userNewTack = User.of(user1.getName(), user1.getEmail(), user1.getPassword(), event);
+        HbnStore.instOf().addUser(userNewTack);
+        userList.add(userNewTack);
         resp.setContentType("application/json; charset=utf-8");
         OutputStream output = resp.getOutputStream();
         String json = GSON.toJson(userList);

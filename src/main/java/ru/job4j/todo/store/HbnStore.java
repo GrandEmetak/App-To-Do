@@ -202,15 +202,19 @@ public class HbnStore implements Store {
         );
     }
 
+    /**
+     * Поиск пользователя в БД users + все записей ассоциированных с пользователем (Event) events DB
+     * @param email
+     * @return
+     */
     @Override
-    public User findByEmail(String email) {
-        return (User) this.tx(
+    public List<User> findByEmail(String email) {
+        return this.tx(
                 session -> {
                     String sql = "from ru.job4j.todo.model.User where email = :email";
-                   Query query = session.createQuery(sql);
-                   query.setParameter("email", email);
-                   var t = query.list();
-                    return t.get(0);
+                    Query query = session.createQuery(sql);
+                    query.setParameter("email", email);
+                    return query.list();
                 }
         );
     }
@@ -276,13 +280,13 @@ public class HbnStore implements Store {
             System.out.println("ТО что пришло из БД : " + eventT);
         }*/
         HbnStore hbnStore = new HbnStore();
-//        Event event = new Event("car wash", Timestamp.valueOf(LocalDateTime.now()), false, "normal");
-//        var ev = hbnStore.add(event);
-//        System.out.println("То что вернул метод add(Event event) :" + ev);
-//        hbnStore.save(User.of("John Smith", "JohnPost@post.com", "WordPassword", ev));
-//        for (User user : hbnStore.findAllUser()) {
-//            System.out.println("ТО что нашли по User : " + user + " " + user.getEvent().getDescription());
-//        }
+ /*       Event event = new Event("car wash", Timestamp.valueOf(LocalDateTime.now()), false, "normal");
+        var ev = hbnStore.add(event);
+        System.out.println("То что вернул метод add(Event event) :" + ev);
+        hbnStore.save(User.of("John Smith", "JohnPost@post.com", "WordPassword", ev));
+        for (User user : hbnStore.findAllUser()) {
+            System.out.println("ТО что нашли по User : " + user + " " + user.getEvent().getDescription());
+        }*/
         String email = "PetrArsentev@mail.ru";
         var usr = hbnStore.findByEmail(email);
         System.out.println(" то что нашли по почте : " + usr);

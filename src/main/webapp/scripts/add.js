@@ -1,4 +1,4 @@
-function add(f) {
+function add(f, index) {
     if (validate()) {
         $.ajax({
             type: 'Get',
@@ -6,7 +6,7 @@ function add(f) {
             data:
                 'description=' + $('#validationDefault01').val()
                 + '&category=' + $('#validationDefault02').val()
-                + '&user=' + f ,
+                + '&user=' + f,
             dataType: 'json'
         }).done(function (response) {
             console.log('OBJECT JSON ' + response);
@@ -22,7 +22,7 @@ function add(f) {
                 console.log(value.email);
                 console.log('Предположительно Объект событие ' + value.event.description);
 
-                str += '<tr> + <th> ' + value.event.id + '</th>';
+                str += '<tr> + <th> ' + index + '</th>';
                 str += '<td>' + '<div class="form-group form-check">' + '<input type="checkbox" class="form-check-input" id="checkbox">'
                     + '<label class="form-check-label" for="checkbox">Check me out</label>' + '</td>'
                     + '<td>' + value.event.done + '</td>'
@@ -33,7 +33,7 @@ function add(f) {
                 str += '<tr>';
                 $('#table tr:last').after(str);
                 str = '';
-
+                index += 1;
             });
         }).fail(function (err) {
             alert(err);
