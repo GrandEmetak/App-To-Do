@@ -5,7 +5,6 @@ import javax.persistence.*;
 
 import java.util.Objects;
 
-
 /**
  * 1. HttpSession [#6869 #209565]
  * Уровень : 3. МидлКатегория : 3.2. Servlet JSPТопик : 3.2.6. Filter, Security
@@ -27,6 +26,11 @@ import java.util.Objects;
  * 2. Добавьте в проект схему user-item(event).
  * 3. Добавьте форму авторизации и регистрации(RegServlet + AuthServlet).
  * 4. В таблице выводить все задания и автора задания.
+ * 1. ToMany [#301848]
+ * Уровень : 3. МидлКатегория : 3.3. HibernateТопик : 3.3.2. Mapping
+ * OneToMany. рассмотрим Unidirectional связь,
+ * т.е. переход от родительской сущности происходит только в одну сторону.
+ * перепишем модели данных следующим образом.
  * @author SlartiBartFast-art
  * @since 11.11.21
  */
