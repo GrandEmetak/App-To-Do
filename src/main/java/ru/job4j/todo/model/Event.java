@@ -4,10 +4,44 @@ import org.hibernate.annotations.Where;
 import javax.persistence.GenerationType;
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.Objects;
 
 /**
  * модель описывает событие в БД  для Хибернате
+ * 18.11.21 произведена замена  private TimeStamp created на  private Date created,
+ * добавлена к ней аннотация для нибернате @Temporal(TemporalType.TIMESTAMP) - переписан ряд калссав,
+ * использующих данное поле Объекта;
+ * 5. Date [#331992]00
+ * Уровень : 3. Мидл Категория : 3.3. HibernateТопик : 3.3.2. Mapping
+ * Hibernate позволяет отображать различные классы даты и времени Java, как свойства сущности
+ * модели предметной области. Стандартом SQL определено три типа даты и времени:
+ * DATA - JDBC: java.sql.Date;, TIME - java.sql.Time;, TIMESTAMP-java.sql.Timestamp.
+ * стоит избегать зависимости  от java.sql пакета, поэтому достаточно эффективным будет
+ * использование пакетов java.util или java.time, в которых определены классы для работы
+ * со временем и датами. При этом для сопоставления, например java.util.Date, и типов,
+ * которые указаны выше используется аннотация @Temporal.
+ * Определим модель данных Product, одним из полей которой будет дата производства
+ * Т.е. в данном случае мы будем сохранять в БД Timestamp - это определяет следующая аннотация: *
+ * Temporal(TemporalType.TIMESTAMP)
+ * при этом поле будет проинициализировано текущей датой и временем: *
+ * p.created = new Date(System.currentTimeMillis());
+ * Если мы не указываем часовой пояс, то драйвер JDBC использует базовый часовой пояс JVM по умолчанию,
+ * однако, это может не подходить, если наше приложение будет использоваться пользователями из разных
+ * стран по всему миру. Для такого случая мы можем настроить часовой пояс на уровне
+ * сессии Session следующим образом:
+ * Session session = sessionFactory()
+ * .withOptions()
+ * .jdbcTimeZone(TimeZone.getTimeZone("UTC"))
+ * .openSession();
+ * т.е. в данном случае часовой пояс будет определен как UTC - это значение можно изменять
+ * различными ключами
+ * Данное свойство определения часового пояса можно определить на уровне конфигурационного
+ * файла hibernate.cfg.xml - за это отвечает следующее поле:\
+ *  property name="hibernate.jdbc.time_zone">Asia/Yekaterinburg</property>
+ *
+ * @author SlartiBartFast-art
+ * @since 18.11.21
  */
 @Entity
 @Table(name = "events")
@@ -17,7 +51,8 @@ public class Event {
     private int id;
     private String description;
 
-    private Timestamp created;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date created;
 
     private boolean done;
 
@@ -26,7 +61,7 @@ public class Event {
     public Event() {
     }
 
-    public Event(int id, String description, Timestamp created, boolean done, String rank) {
+    public Event(int id, String description, Date created, boolean done, String rank) {
         this.id = id;
         this.description = description;
         this.created = created;
@@ -34,7 +69,7 @@ public class Event {
         this.rank = rank;
     }
 
-    public Event(String description, Timestamp created, boolean done, String rank) {
+    public Event(String description, Date created, boolean done, String rank) {
         this.description = description;
         this.created = created;
         this.done = done;
@@ -57,11 +92,11 @@ public class Event {
         this.description = description;
     }
 
-    public Timestamp getCreated() {
+    public Date getCreated() {
         return created;
     }
 
-    public void setCreated(Timestamp created) {
+    public void setCreated(Date created) {
         this.created = created;
     }
 

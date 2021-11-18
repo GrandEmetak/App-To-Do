@@ -21,6 +21,7 @@ import java.nio.charset.StandardCharsets;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -56,7 +57,9 @@ public class ToDoServlet extends HttpServlet {
         }
         System.out.println("String " + fr);
         System.out.println("String " + category);
-        Event event = new Event(fr, Timestamp.valueOf(LocalDateTime.now()), false, category);
+        /*Event event = new Event(fr, Timestamp.valueOf(LocalDateTime.now()), false, category);*/
+        Event event = new Event(fr, new Date(System.currentTimeMillis()), false, category);
+
         var evtId = HbnStore.instOf().add(event);
         var iD = evtId.getId();
         System.out.println("Evene ID posle bazi : " + iD);
