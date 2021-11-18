@@ -2,6 +2,15 @@ package ru.job4j.todo.model;
 
 import java.util.Objects;
 
+/**
+ * 4. Категории в TODO List [#331991 #230037]
+ * Уровень : 3. МидлКатегория : 3.3. HibernateТопик : 3.3.2. Mapping
+ * Задание.
+ * 1. Вернитесь к проекту ToDoList, Добавьте модель данных Category,
+ * которая будет отображать категорию задания. Модель должна содержать 2 поля: id и name.
+ * @author SlartiBartFast-art
+ * @since 18.11.21
+ */
 public class Category {
     private int id;
     private String name;
