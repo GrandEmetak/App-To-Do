@@ -9,7 +9,7 @@
         <property name="hibernate.connection.username">postgres</property>
         <property name="hibernate.connection.password">PilotS</property>
         <property name="hibernate.connection.pool_size">10</property>
-        <property name="hibernate.jdbc.time_zone">Asia/Yekaterinburg</property>
+        <property name="hibernate.jdbc.time_zone">Asia/Yekaterinburg</property><!--  свойство определения часового пояса можно определить на уровне конфигурационного файла-->
         <property name="hibernate.current_session_context_class">thread</property>
         <property name="hibernate.show_sql">true</property>
         <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQL10Dialect</property>
@@ -17,6 +17,7 @@
         <property name="show_sql">true</property>
         <property name="format_sql">true</property>
         <property name="use_sql_comments">true</property>
+
 
         <mapping class="ru.job4j.todo.model.Item"/>
         <mapping class="ru.job4j.todo.model.User"/>
