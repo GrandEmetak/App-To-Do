@@ -25,7 +25,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Давайте теперь создадим сервлет, который будет отрабатывать запросы.
+ * Сервлет, который будет отрабатывать запросы.
  * объект типа PrintWriter, используемый для отправки вывода клиенту.
  * Однако, чтобы сделать объект response полезным,
  * следует использовать буферизированный вариант PrintWriter - JspWriter
@@ -64,7 +64,7 @@ public class ToDoServlet extends HttpServlet {
         var iD = evtId.getId();
         System.out.println("Evene ID posle bazi : " + iD);
         var userL = HbnStore.instOf().findByEmail(usr);
-        var user1 = userL.get(0);
+        var user1 = userL.iterator().next();
         var userNewTack = User.of(user1.getName(), user1.getEmail(), user1.getPassword(), event);
         HbnStore.instOf().addUser(userNewTack);
         userList.add(userNewTack);
