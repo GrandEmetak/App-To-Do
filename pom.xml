@@ -4,12 +4,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>ru.job4j</groupId>
+    <groupId>app.todo</groupId>
     <artifactId>job4j_todo</artifactId>
     <version>1.0</version>
     <packaging>war</packaging>
 
-    <name>job4j_todo</name>
+    <name>app_todo</name>
 
     <properties>
         <maven.compiler.source>15</maven.compiler.source>
