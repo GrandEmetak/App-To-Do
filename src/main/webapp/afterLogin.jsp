@@ -2,9 +2,9 @@
 <%--<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>--%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
 <%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ page import="ru.job4j.todo.model.User" %>
+<%@ page import="app.todo.todo.model.User" %>
 <%@ page import="java.util.Collection" %>
-<%@ page import="ru.job4j.todo.model.User" %>
+<%@ page import="app.todo.todo.model.User" %>
 
 <!doctype html>
 <html lang="en">

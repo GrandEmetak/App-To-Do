@@ -1,4 +1,4 @@
-package ru.job4j.todo.servlet;
+package app.todo.todo.servlet;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

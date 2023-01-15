@@ -1,12 +1,12 @@
-package ru.job4j.manytomany.store;
+package app.todo.manytomany.store;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import ru.job4j.manytomany.model.City;
-import ru.job4j.manytomany.model.Human;
+import app.todo.manytomany.model.City;
+import app.todo.manytomany.model.Human;
 
 import java.util.ArrayList;
 import java.util.List;

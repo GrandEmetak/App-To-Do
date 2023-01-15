@@ -1,8 +1,8 @@
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="ru.job4j.todo.store.Store" %>
-<%@ page import="ru.job4j.todo.model.Item" %>
+<%@ page import="app.todo.todo.store.Store" %>
+<%@ page import="app.todo.todo.model.Item" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!doctype html> <!-- Объявление формата документа определяет не только версию HTML (например, html), но и соответствующий DTD-файл в Интернете-->
 <html lang="en">

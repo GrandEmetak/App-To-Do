@@ -6,31 +6,31 @@
     <display-name>Archetype Created Web Application</display-name>
     <servlet><!--здесь прописан путь к Java-классу -->
         <servlet-name>GreetingsServlet</servlet-name>
-        <servlet-class>ru.job4j.todo.servlet.GreetingsServlet</servlet-class>
+        <servlet-class>app.todo.todo.servlet.GreetingsServlet</servlet-class>
     </servlet>
     <servlet><!--здесь прописан путь к Java-классу -->
         <servlet-name>ToDoServlet</servlet-name>
-        <servlet-class>ru.job4j.todo.servlet.ToDoServlet</servlet-class>
+        <servlet-class>app.todo.todo.servlet.ToDoServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AuthServlet</servlet-name>
-        <servlet-class>ru.job4j.todo.servlet.AuthServlet</servlet-class>
+        <servlet-class>app.todo.todo.servlet.AuthServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>RegServlet</servlet-name>
-        <servlet-class>ru.job4j.todo.servlet.RegServlet</servlet-class>
+        <servlet-class>app.todo.todo.servlet.RegServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AfterLoginServlet</servlet-name>
-        <servlet-class>ru.job4j.todo.servlet.AfteLoginServlet</servlet-class>
+        <servlet-class>app.todo.todo.servlet.AfteLoginServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>LogoutServlet</servlet-name>
-        <servlet-class>ru.job4j.todo.servlet.LogoutServlet</servlet-class>
+        <servlet-class>app.todo.todo.servlet.LogoutServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>HumanServlet</servlet-name>
-        <servlet-class>ru.job4j.manytomany.servlet.HumanServlet</servlet-class>
+        <servlet-class>app.todo.manytomany.servlet.HumanServlet</servlet-class>
     </servlet>
 
     <servlet-mapping><!--здесь прописан путь к куску адресной строки, вызывающей сервлет -->

@@ -19,12 +19,12 @@
         <property name="use_sql_comments">true</property>
 
 
-        <mapping class="ru.job4j.todo.model.Item"/>
-        <mapping class="ru.job4j.todo.model.User"/>
-        <mapping class="ru.job4j.todo.model.Category"/>
-        <mapping class="ru.job4j.todo.model.Event"/>
-        <mapping class="ru.job4j.manytomany.model.City"/>
-        <mapping class="ru.job4j.manytomany.model.Human"/>
+        <mapping class="app.todo.todo.model.Item"/>
+        <mapping class="app.todo.todo.model.User"/>
+        <mapping class="app.todo.todo.model.Category"/>
+        <mapping class="app.todo.todo.model.Event"/>
+        <mapping class="app.todo.manytomany.model.City"/>
+        <mapping class="app.todo.manytomany.model.Human"/>
 
 
     </session-factory>

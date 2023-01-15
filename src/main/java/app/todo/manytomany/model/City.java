@@ -1,4 +1,4 @@
-package ru.job4j.manytomany.model;
+package app.todo.manytomany.model;
 
 import javax.persistence.*;
 import java.util.Objects;

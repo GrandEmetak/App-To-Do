@@ -1,10 +1,9 @@
-package ru.job4j.todo.servlet;
+package app.todo.todo.servlet;
 
-import ru.job4j.todo.model.User;
-import ru.job4j.todo.store.HbnStore;
+import app.todo.todo.model.User;
+import app.todo.todo.store.HbnStore;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

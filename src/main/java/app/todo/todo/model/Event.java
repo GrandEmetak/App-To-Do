@@ -1,9 +1,7 @@
-package ru.job4j.todo.model;
+package app.todo.todo.model;
 
-import org.hibernate.annotations.Where;
 import javax.persistence.GenerationType;
 import javax.persistence.*;
-import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Objects;
 

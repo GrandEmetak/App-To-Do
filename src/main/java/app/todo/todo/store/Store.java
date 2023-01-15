@@ -1,7 +1,7 @@
-package ru.job4j.todo.store;
+package app.todo.todo.store;
 
-import ru.job4j.todo.model.Category;
-import ru.job4j.todo.model.Item;
+import app.todo.todo.model.Category;
+import app.todo.todo.model.Item;
 
 import java.sql.Timestamp;
 

@@ -1,4 +1,4 @@
-package ru.job4j.todo.model;
+package app.todo.todo.model;
 
 import javax.persistence.GenerationType;
 import javax.persistence.*;

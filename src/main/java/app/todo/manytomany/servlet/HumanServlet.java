@@ -1,8 +1,8 @@
-package ru.job4j.manytomany.servlet;
+package app.todo.manytomany.servlet;
 
-import ru.job4j.manytomany.store.HbmStore;
-import ru.job4j.manytomany.model.City;
-import ru.job4j.manytomany.model.Human;
+import app.todo.manytomany.store.HbmStore;
+import app.todo.manytomany.model.City;
+import app.todo.manytomany.model.Human;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
-import javax.servlet.http.HttpServlet;
 
 public class HumanServlet extends HttpServlet {
     @Override

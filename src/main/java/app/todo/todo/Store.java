@@ -1,9 +1,7 @@
-package ru.job4j.todo;
+package app.todo.todo;
 
-import org.hibernate.SessionFactory;
-import ru.job4j.todo.model.Event;
-import ru.job4j.todo.model.Item;
-import ru.job4j.todo.model.User;
+import app.todo.todo.model.Event;
+import app.todo.todo.model.User;
 
 import java.util.List;
 

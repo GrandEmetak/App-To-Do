@@ -1,9 +1,4 @@
-package ru.job4j.todo.servlet;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import ru.job4j.todo.model.User;
-import ru.job4j.todo.store.HbnStore;
+package app.todo.todo.servlet;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

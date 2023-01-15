@@ -1,5 +1,6 @@
-package ru.job4j.todo.store;
+package app.todo.todo.store;
 
+import app.todo.todo.Store;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -7,17 +8,13 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.query.Query;
-import ru.job4j.todo.Store;
-import ru.job4j.todo.model.Event;
-import ru.job4j.todo.model.Item;
-import ru.job4j.todo.model.User;
+import app.todo.todo.model.Event;
+import app.todo.todo.model.User;
 
-import java.sql.*;
 import java.time.format.DateTimeFormatter;
 import java.util.function.Function;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -87,14 +84,14 @@ public class HbnStore implements Store {
     @Override
     public List<Event> findAll() {
         return this.tx(
-                session -> session.createQuery("from ru.job4j.todo.model.Event").list()
+                session -> session.createQuery("SELECT e FROM Event e").list()
         );
     }
 
     @Override
     public List<User> findAllUser() {
         return this.tx(
-                session -> session.createQuery("from ru.job4j.todo.model.User").list()
+                session -> session.createQuery("SELECT u FROM User u").list()
         );
     }
 
@@ -211,7 +208,7 @@ public class HbnStore implements Store {
     public List<User> findByEmail(String email) {
         return this.tx(
                 session -> {
-                    String sql = "from ru.job4j.todo.model.User where email = :email";
+                    String sql = "SELECT t FROM User t where t.email = :email";
                     Query query = session.createQuery(sql);
                     query.setParameter("email", email);
                     return query.list();

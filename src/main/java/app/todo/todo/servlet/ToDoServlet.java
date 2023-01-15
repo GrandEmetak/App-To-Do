@@ -1,25 +1,18 @@
-package ru.job4j.todo.servlet;
+package app.todo.todo.servlet;
 
+import app.todo.todo.model.Event;
+import app.todo.todo.model.User;
+import app.todo.todo.store.HbnStore;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import ru.job4j.todo.model.Category;
-import ru.job4j.todo.model.Event;
-import ru.job4j.todo.model.Item;
-import ru.job4j.todo.model.User;
-import ru.job4j.todo.store.HbnStore;
-import ru.job4j.todo.store.Store;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
