@@ -32,10 +32,6 @@
         <servlet-name>HumanServlet</servlet-name>
         <servlet-class>app.todo.manytomany.servlet.HumanServlet</servlet-class>
     </servlet>
-    <servlet>
-        <servlet-name>HumanServlet</servlet-name>
-        <servlet-class>ru.job4j.manytomany.servlet.HumanServlet</servlet-class>
-    </servlet>
 
     <servlet-mapping><!--здесь прописан путь к куску адресной строки, вызывающей сервлет -->
         <servlet-name>GreetingsServlet</servlet-name>
