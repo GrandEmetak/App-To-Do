@@ -21,16 +21,11 @@ import java.util.List;
  * Использовать для работы с БД через Хибернате
  * в случае необходимости пойска по ключам использовать:
  * var list = session
- * .createQuery("from ru.job4j.tracker.model.Item where name = :key")
+ * .createQuery("SELECT i from Item as i where i.name = :key")
  * .setParameter("key", key)
  * .list();
- * 3. Лямбды и шаблон wrapper. [#49295]
- * Уровень : 3. МидлКатегория : 3.3. HibernateТопик : 3.3.1. Конфигурирование
- * Упростите предыдущий проект (to do List) с использованием шаблона wrapper.
- * посмотреть код методов до переделывания кода на лямбда и шаблон wrapper
- * https://github.com/SlartiBartFast-art/job4j_todo/commit/a93ebe67dcde879a2cb2e0c2939e6fc98ce4b529
+ * 3. Лямбды и шаблон wrapper. [#49295] 
  *
- * @author SlartiBartFast-art
  * @since 13.10.21
  */
 public class HbnStore implements Store {
