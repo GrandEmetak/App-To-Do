@@ -4,12 +4,6 @@ import javax.persistence.*;
 import java.util.Objects;
 
 /**
- * 4. Категории в TУDO List [#331991]
- * Уровень : 3. МидлКатегория : 3.3. HibernateТопик : 3.3.2. Mapping
- * Мы организовали Undirect связь ManyToMany между сущностями.
- * Очевидно, что мы можем создать очень много объектов класса Human,
- * список городов ограничен, при необходимости мы будем добавлять новый город отдельно.
- * @author SlartiBartFast-art
  * @since 18.11.21
  */
 @Entity
